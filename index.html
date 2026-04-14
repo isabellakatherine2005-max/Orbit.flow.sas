@@ -951,8 +951,9 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 <script>
 const SUPABASE_URL  = 'https://orlwhomkickjcuuxrszu.supabase.co';
 const SUPABASE_ANON = 'sb_publishable_8wdg6SsK8eewvZZbjp6T2w_S6Q-pl9b';
-const { createClient } = supabase;
-const _sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+const _sb = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON
 
 // ── TOAST ─────────────────────────────────
 function toast(msg, type='success') {
