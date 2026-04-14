@@ -7,7 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400;1,9..40,500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #080a0f; --surface: #0d1117; --surface-2: #161b24; --surface-3: #1e2535;
@@ -42,9 +42,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 /* ─── AUTH ─────────────────────────────────── */
 #authScreen {
   min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  background: #050505;
-  position: relative;
-  overflow: hidden;
+  background: #050505; position: relative; overflow: hidden;
 }
 .sky-canvas { position:absolute; inset:0; width:100%; height:100%; background:#050505; z-index:0; }
 .stars { position:absolute; inset:0; background-repeat:repeat; pointer-events:none; }
@@ -62,40 +60,13 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 
 .auth-wrap { position:relative; z-index:2; width:100%; max-width:420px; padding:1.5rem; }
 .auth-logo-area { text-align: center; margin-bottom: 2.5rem; }
-
-/* ── WORDMARK NEON ── */
 .auth-wordmark {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  font-family: var(--font-body);
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  color: #00f2c3;
-  text-shadow:
-    0 0 6px rgba(0,242,195,1),
-    0 0 16px rgba(0,242,195,0.8),
-    0 0 36px rgba(0,242,195,0.5),
-    0 0 70px rgba(0,242,195,0.25);
+  font-family: var(--font-display);
+  font-size: 3rem; font-weight: 600; font-style: italic;
+  color: var(--accent); text-shadow: 0 0 40px rgba(0,242,195,0.4);
+  display: block; letter-spacing: 0.02em; line-height: 1;
 }
-.auth-wordmark-o {
-  position: relative;
-  display: inline-block;
-  width: 2.05ch;
-  text-align: center;
-}
-.auth-wordmark-o svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow: visible;
-  pointer-events: none;
-}
-
-.auth-tagline { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; font-weight: 500; font-family: var(--font-body); margin-top: 8px; }
+.auth-tagline { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; font-weight: 500; font-family: var(--font-body); margin-top: 4px; }
 .auth-card {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
   padding: 2rem; box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5);
@@ -108,7 +79,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .auth-tab { flex:1; padding: 0.55rem; border: none; border-radius: 8px; font-family: var(--font-body); font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--text-muted); }
 .auth-tab.active { background: var(--primary); color: #fff; box-shadow: 0 4px 16px var(--primary-glow); }
 .auth-form { display: flex; flex-direction: column; gap: 1rem; }
-.field-label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); margin-bottom: 0.45rem; display: block; }
+.field-label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); margin-bottom: 0.45rem; display: block; font-family: var(--font-body); }
 .field-input {
   width: 100%; background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
   padding: 0.82rem 1rem; border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.92rem;
@@ -119,28 +90,26 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), #4338ca); color: #fff; border: none;
   padding: 0.85rem; border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.92rem;
-  font-weight: 600; cursor: pointer; transition: all 0.25s; box-shadow: 0 4px 20px var(--primary-glow);
-  margin-top: 0.3rem;
+  font-weight: 600; cursor: pointer; transition: all 0.25s; box-shadow: 0 4px 20px var(--primary-glow); margin-top: 0.3rem;
 }
 .btn-primary:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.12); box-shadow: 0 8px 30px var(--primary-glow); }
 .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 .btn-accent {
   background: linear-gradient(135deg, #0d9488, #0f766e); color: #fff; border: none;
   padding: 0.85rem; border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.92rem;
-  font-weight: 600; cursor: pointer; transition: all 0.25s; box-shadow: 0 4px 20px rgba(0,242,195,0.2);
-  margin-top: 0.3rem;
+  font-weight: 600; cursor: pointer; transition: all 0.25s; box-shadow: 0 4px 20px rgba(0,242,195,0.2); margin-top: 0.3rem;
 }
 .btn-accent:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.1); }
 .btn-accent:disabled { opacity: 0.4; cursor: not-allowed; }
-.auth-msg { padding: 0.75rem 1rem; border-radius: 10px; font-size: 0.83rem; font-weight: 500; text-align: center; display: none; }
+.auth-msg { padding: 0.75rem 1rem; border-radius: 10px; font-size: 0.83rem; font-weight: 500; text-align: center; display: none; font-family: var(--font-body); }
 .auth-msg.error { background: var(--danger-dim); border: 1px solid rgba(245,101,101,0.25); color: var(--danger); display: block; }
 .auth-msg.success { background: var(--accent-dim); border: 1px solid rgba(0,242,195,0.25); color: var(--accent); display: block; }
-.auth-footer { margin-top: 1.4rem; text-align: center; font-size: 0.76rem; color: var(--text-muted); }
+.auth-footer { margin-top: 1.4rem; text-align: center; font-size: 0.76rem; color: var(--text-muted); font-family: var(--font-body); }
 .auth-footer a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .auth-footer a:hover { color: var(--text-2); }
 .reset-hint { display: flex; gap: 0.8rem; padding: 0.9rem 1rem; background: var(--accent-dim); border: 1px solid var(--accent-glow); border-radius: 12px; margin-bottom: 0.5rem; align-items: flex-start; }
-.reset-hint-title { font-size: 0.85rem; font-weight: 700; color: var(--accent); }
-.reset-hint-body { font-size: 0.78rem; color: var(--text-muted); }
+.reset-hint-title { font-size: 0.85rem; font-weight: 700; color: var(--accent); font-family: var(--font-body); }
+.reset-hint-body { font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-body); }
 
 /* ─── APP LAYOUT ─────────────────────────────── */
 #appScreen { display: none; height: 100vh; }
@@ -153,34 +122,20 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
   overflow: hidden; transition: width 0.3s ease;
 }
 .sidebar-brand {
-  padding: 1.4rem 1rem 1.2rem;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  cursor: pointer;
+  padding: 1.4rem 1rem 1.2rem; border-bottom: 1px solid var(--border);
+  flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-start; cursor: pointer;
 }
 .brand-name {
   font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 600;
-  font-style: italic;
-  color: var(--accent);
-  text-shadow: 0 0 20px rgba(0,242,195,0.4);
-  display: block;
-  line-height: 1;
-  letter-spacing: 0.02em;
+  font-size: 2rem; font-weight: 600; font-style: italic;
+  color: var(--accent); text-shadow: 0 0 20px rgba(0,242,195,0.4);
+  display: block; line-height: 1; letter-spacing: 0.02em;
 }
 .brand-sub {
-  font-size: 0.6rem;
-  color: var(--text-muted);
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-top: 5px;
-  font-family: var(--font-body);
+  font-size: 0.6rem; color: var(--text-muted); font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase; margin-top: 5px; font-family: var(--font-body);
 }
+
 .sidebar-nav { flex: 1; padding: 1rem 0.75rem; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
 .nav-section-label { font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.8px; color: var(--text-muted); padding: 0.8rem 0.6rem 0.4rem; font-family: var(--font-body); }
 .nav-item {
@@ -193,6 +148,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .nav-item.active { background: var(--primary-dim); color: var(--primary); border-color: rgba(99,102,241,0.2); }
 .nav-item svg { flex-shrink: 0; opacity: 0.8; }
 .nav-item.active svg { opacity: 1; }
+
 .sidebar-profile { padding: 1rem 0.75rem; border-top: 1px solid var(--border); flex-shrink: 0; }
 .profile-card { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s; }
 .profile-card:hover { background: var(--surface-2); }
@@ -210,10 +166,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .topbar { padding: 1rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface); flex-shrink: 0; }
 .topbar-title {
   font-family: var(--font-display);
-  font-size: 1.45rem;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.01em;
+  font-size: 1.5rem; font-weight: 500; font-style: italic; letter-spacing: 0.015em; color: var(--text);
 }
 .topbar-right { display: flex; align-items: center; gap: 1rem; }
 .live-dot { display: flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; font-family: var(--font-body); }
@@ -228,60 +181,34 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 /* ─── CARDS ─────────────────────────────────── */
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem; }
 .card-sm { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+
+/* section-title: Cormorant for display elegance */
 .section-title {
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 600;
-  font-style: italic;
-  margin-bottom: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  letter-spacing: 0.01em;
+  font-size: 1.2rem; font-weight: 500; font-style: italic;
+  margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;
+  letter-spacing: 0.01em; color: var(--text); line-height: 1.3;
 }
 
 /* ─── DASHBOARD PAGE ─────────────────────────── */
 .dash-welcome { margin-bottom: 2rem; }
 .dash-greeting {
   font-family: var(--font-display);
-  font-size: 2.4rem;
-  font-weight: 500;
-  font-style: italic;
-  color: var(--text);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-size: 2.6rem; font-weight: 400; font-style: italic;
+  color: var(--text); line-height: 1.15; letter-spacing: -0.01em;
 }
 .dash-greeting span.wave { display: inline-block; animation: wave 2s ease-in-out 0.5s 1; font-style: normal; }
-@keyframes wave {
-  0%,100%{transform:rotate(0deg)} 20%{transform:rotate(20deg)} 40%{transform:rotate(-10deg)} 60%{transform:rotate(15deg)} 80%{transform:rotate(-5deg)}
-}
+@keyframes wave { 0%,100%{transform:rotate(0deg)} 20%{transform:rotate(20deg)} 40%{transform:rotate(-10deg)} 60%{transform:rotate(15deg)} 80%{transform:rotate(-5deg)} }
 .dash-date { font-size: 0.83rem; color: var(--text-muted); margin-top: 0.35rem; font-weight: 400; font-family: var(--font-body); letter-spacing: 0.01em; }
 .dash-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; font-family: var(--font-body); }
 
-.kpi-grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.8rem;
-}
+.kpi-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.8rem; }
 .kpi-dash-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.4rem 1.6rem;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.2s, transform 0.2s;
-  cursor: default;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.4rem 1.6rem; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; cursor: default;
 }
 .kpi-dash-card:hover { border-color: var(--border-2); transform: translateY(-2px); }
-.kpi-dash-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  border-radius: 2px 2px 0 0;
-}
+.kpi-dash-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 2px 2px 0 0; }
 .kpi-dash-card.kd-a::before { background: var(--primary); }
 .kpi-dash-card.kd-b::before { background: var(--accent); }
 .kpi-dash-card.kd-c::before { background: var(--warning); }
@@ -291,41 +218,23 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .kd-b .kdc-icon { background: var(--accent-dim); color: var(--accent); }
 .kd-c .kdc-icon { background: var(--warning-dim); color: var(--warning); }
 .kd-d .kdc-icon { background: var(--danger-dim); color: var(--danger); }
-.kdc-badge {
-  position: absolute; top: 1.2rem; right: 1.2rem;
-  font-size: 0.65rem; font-weight: 600;
-  padding: 2px 8px; border-radius: 20px;
-  font-family: var(--font-body);
-}
+.kdc-badge { position: absolute; top: 1.2rem; right: 1.2rem; font-size: 0.65rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; font-family: var(--font-body); }
 .kdc-badge.pos { background: rgba(0,242,195,0.1); color: var(--accent); }
 .kdc-badge.neg { background: rgba(245,101,101,0.1); color: var(--danger); }
+/* KPI values in Cormorant — large numerals look superb in display serif */
 .kdc-value {
   font-family: var(--font-display);
-  font-size: 2.4rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--text);
-  letter-spacing: -0.01em;
+  font-size: 2.6rem; font-weight: 500; line-height: 1;
+  color: var(--text); letter-spacing: -0.02em;
 }
 .kdc-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.35rem; font-weight: 400; font-family: var(--font-body); }
 
 .dash-quick-title { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1rem; font-family: var(--font-body); }
-.dash-quick-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.8rem;
-}
+.dash-quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.8rem; }
 .quick-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.4rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.4rem; cursor: pointer; transition: all 0.2s;
+  display: flex; flex-direction: column; gap: 0.8rem;
 }
 .quick-card:hover { border-color: var(--primary); background: var(--primary-dim); transform: translateY(-2px); }
 .qc-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
@@ -336,11 +245,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .qc-desc { font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-body); }
 .qc-arrow { color: var(--primary); font-size: 1rem; display: block; font-family: var(--font-body); }
 
-.dash-charts-row {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 1.2rem;
-}
+.dash-charts-row { display: grid; grid-template-columns: 1fr 380px; gap: 1.2rem; }
 .chart-wrap { height: 220px; }
 
 /* ─── ANALYSIS PAGE ─────────────────────────────── */
@@ -372,6 +277,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .btn-analyze:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.1); }
 .btn-analyze:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
 
+/* Results */
 .results-area { margin-top: 2rem; display: none; animation: fadeUp 0.5s ease; }
 .results-area.visible { display: block; }
 .kpi-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-bottom: 1.5rem; }
@@ -380,14 +286,21 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .kpi-card.k-success { border-bottom-color: var(--accent); }
 .kpi-card.k-fail { border-bottom-color: var(--danger); }
 .kpi-label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); font-family: var(--font-body); }
-.kpi-value { font-family: var(--font-display); font-size: 3rem; font-weight: 500; margin: 0.4rem 0 0.2rem; line-height: 1; letter-spacing: -0.02em; }
+/* Large result KPI values — Cormorant shines here */
+.kpi-value {
+  font-family: var(--font-display);
+  font-size: 3.2rem; font-weight: 400; margin: 0.4rem 0 0.2rem; line-height: 1; letter-spacing: -0.02em;
+}
 .kpi-card.k-total .kpi-value { color: var(--primary); }
 .kpi-card.k-success .kpi-value { color: var(--accent); }
 .kpi-card.k-fail .kpi-value { color: var(--danger); }
 .kpi-sub { font-size: 0.76rem; color: var(--text-muted); font-weight: 400; font-family: var(--font-body); }
 
 .insight-bar { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1.2rem; border-radius: var(--radius-sm); border: 1px solid; margin-bottom: 1.5rem; }
-.insight-bar .pct-big { font-family: var(--font-display); font-size: 2.2rem; font-weight: 600; margin-left: auto; letter-spacing: -0.02em; font-style: italic; }
+.insight-bar .pct-big {
+  font-family: var(--font-display);
+  font-size: 2.4rem; font-weight: 500; margin-left: auto; letter-spacing: -0.02em; font-style: italic;
+}
 .insight-bar .ilabel { font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 2px; font-family: var(--font-body); }
 .insight-bar .itext { font-size: 0.83rem; font-weight: 400; font-family: var(--font-body); }
 .ib-excellent { background: rgba(0,242,195,0.05); border-color: rgba(0,242,195,0.25); color: var(--accent); }
@@ -406,14 +319,18 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .badge-pct { font-size: 0.68rem; font-weight: 600; padding: 2px 8px; border-radius: 6px; font-family: var(--font-body); }
 .badge-success { background: rgba(0,242,195,0.1); color: var(--accent); }
 .badge-fail { background: var(--danger-dim); color: var(--danger); }
-.status-num { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; }
+/* Status numbers in display font for elegance */
+.status-num { font-family: var(--font-display); font-size: 1.15rem; font-weight: 500; }
 .s-green { color: var(--accent); } .s-red { color: var(--danger); }
 
 .funil-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1.5rem; }
 .funil-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.1rem; text-align: center; position: relative; }
 .funil-arrow { position: absolute; right: -0.85rem; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--text-muted); z-index:1; }
 .funil-lbl { font-size: 0.63rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-muted); margin-bottom: 0.4rem; font-family: var(--font-body); }
-.funil-val { font-family: var(--font-display); font-size: 1.9rem; font-weight: 500; letter-spacing: -0.02em; }
+.funil-val {
+  font-family: var(--font-display);
+  font-size: 2.1rem; font-weight: 400; letter-spacing: -0.02em;
+}
 .funil-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem; font-family: var(--font-body); }
 .funil-bar { height: 4px; border-radius: 2px; margin-top: 0.7rem; background: var(--border); overflow: hidden; }
 .funil-fill { height: 100%; border-radius: 2px; transition: width 0.9s ease; }
@@ -440,8 +357,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .history-grid { display: flex; flex-direction: column; gap: 0.8rem; }
 .history-card {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1.5rem;
-  transition: border-color 0.2s;
+  padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1.5rem; transition: border-color 0.2s;
 }
 .history-card:hover { border-color: var(--border-2); }
 .hc-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--primary-dim); border: 1px solid rgba(99,102,241,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -462,14 +378,14 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .profile-page { max-width: 640px; }
 .profile-header-section { display: flex; align-items: center; gap: 2rem; padding: 2rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); margin-bottom: 1.5rem; }
 .avatar-upload { position: relative; cursor: pointer; }
-.avatar-big { width: 80px; height: 80px; border-radius: 50%; background: var(--primary-dim); border: 3px solid rgba(99,102,241,0.3); display: flex; align-items: center; justify-content: center; overflow: hidden; font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--primary); }
+.avatar-big { width: 80px; height: 80px; border-radius: 50%; background: var(--primary-dim); border: 3px solid rgba(99,102,241,0.3); display: flex; align-items: center; justify-content: center; overflow: hidden; font-family: var(--font-display); font-size: 2rem; font-weight: 500; color: var(--primary); }
 .avatar-big img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: none; }
 .avatar-overlay { position: absolute; inset: 0; border-radius: 50%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
 .avatar-upload:hover .avatar-overlay { opacity: 1; }
 .avatar-icons-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.5rem; margin-top: 0.8rem; }
 .icon-opt { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
 .icon-opt:hover, .icon-opt.selected { border-color: var(--primary); background: var(--primary-dim); }
-.profile-name-area h2 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; font-style: italic; }
+.profile-name-area h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; font-style: italic; }
 .profile-name-area p { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem; font-family: var(--font-body); }
 
 .pref-list { display: flex; flex-direction: column; gap: 0.6rem; }
@@ -529,77 +445,9 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
   </div>
   <div class="auth-wrap">
     <div class="auth-logo-area">
-
-      <!-- ══ WORDMARK ORBIT COM O SATURNO NEON ══ -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:0;line-height:1;">
-        <!-- letra O com anel -->
-        <span style="position:relative;display:inline-flex;align-items:center;justify-content:center;">
-          <!-- SVG do anel — renderizado sobre a letra -->
-          <svg width="0" height="0" style="position:absolute;overflow:visible;pointer-events:none;z-index:2;" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <filter id="ringNeon" x="-80%" y="-80%" width="260%" height="260%">
-                <feGaussianBlur stdDeviation="1.8" result="b1"/>
-                <feGaussianBlur stdDeviation="4"   result="b2"/>
-                <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-              <clipPath id="ringClipFront" clipPathUnits="userSpaceOnUse">
-                <rect x="-200" y="0" width="400" height="200"/>
-              </clipPath>
-              <clipPath id="ringClipBack" clipPathUnits="userSpaceOnUse">
-                <rect x="-200" y="-200" width="400" height="200"/>
-              </clipPath>
-            </defs>
-          </svg>
-          <span id="orbitO" style="
-            font-family:'DM Sans',system-ui,sans-serif;
-            font-size:3rem;
-            font-weight:700;
-            color:#00f2c3;
-            text-shadow:
-              0 0 6px rgba(0,242,195,1),
-              0 0 16px rgba(0,242,195,0.85),
-              0 0 36px rgba(0,242,195,0.55),
-              0 0 70px rgba(0,242,195,0.28);
-            position:relative;
-            z-index:1;
-            letter-spacing:-0.02em;
-          ">O</span>
-          <!-- Canvas SVG do anel posicionado absolutamente sobre o O -->
-          <svg id="saturnRing" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);overflow:visible;pointer-events:none;z-index:3;" xmlns="http://www.w3.org/2000/svg">
-            <!-- metade de trás — tracejada, atrás da letra -->
-            <ellipse id="ringBack" cx="0" cy="0" rx="38" ry="11" fill="none"
-                     stroke="#00f2c3" stroke-width="2" stroke-dasharray="5 3.5"
-                     opacity="0.22" transform="rotate(-12)"
-                     style="filter:drop-shadow(0 0 4px rgba(0,242,195,0.6))"/>
-            <!-- metade da frente — sólida, na frente da letra -->
-            <ellipse id="ringFront" cx="0" cy="0" rx="38" ry="11" fill="none"
-                     stroke="#00f2c3" stroke-width="2.2"
-                     opacity="0.88" transform="rotate(-12)"
-                     style="filter:drop-shadow(0 0 6px rgba(0,242,195,0.9)) drop-shadow(0 0 12px rgba(0,242,195,0.5))"/>
-          </svg>
-        </span>
-        <!-- rbit -->
-        <span style="
-          font-family:'DM Sans',system-ui,sans-serif;
-          font-size:3rem;
-          font-weight:700;
-          color:#00f2c3;
-          letter-spacing:-0.02em;
-          text-shadow:
-            0 0 6px rgba(0,242,195,1),
-            0 0 16px rgba(0,242,195,0.85),
-            0 0 36px rgba(0,242,195,0.55),
-            0 0 70px rgba(0,242,195,0.28);
-          position:relative;
-          z-index:1;
-        ">rbit</span>
-      </div>
-      <!-- clip do anel: a metade de cima (trás) fica atrás da letra via z-index; -->
-      <!-- a metade de baixo (frente) fica na frente via z-index do SVG pai -->
-
+      <span class="auth-wordmark">Orbit</span>
       <span class="auth-tagline">Analytics · Enterprise Edition</span>
     </div>
-
     <div class="auth-card">
       <div class="auth-tabs" id="authTabs">
         <button class="auth-tab active" onclick="switchTab('login')">Entrar</button>
@@ -833,6 +681,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
           </div>
         </div>
 
+        <!-- RESULTS -->
         <div class="results-area" id="resultsArea">
           <div id="insightBar" class="insight-bar" style="display:none"></div>
 
@@ -932,7 +781,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
       <div class="page" id="page-history">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
           <div>
-            <h2 style="font-family:var(--font-display);font-size:1.5rem;font-weight:600;font-style:italic;letter-spacing:0.01em">Histórico de Análises</h2>
+            <h2 style="font-family:var(--font-display);font-size:1.7rem;font-weight:500;font-style:italic;letter-spacing:0.01em">Histórico de Análises</h2>
             <p style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;font-family:var(--font-body)">Todas as requisições realizadas nesta sessão</p>
           </div>
         </div>
@@ -948,7 +797,7 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
       <!-- PAGE: PROFILE -->
       <div class="page" id="page-profile">
         <div class="profile-page">
-          <h2 style="font-family:var(--font-display);font-size:1.5rem;font-weight:600;font-style:italic;letter-spacing:0.01em;margin-bottom:1.5rem">Perfil</h2>
+          <h2 style="font-family:var(--font-display);font-size:1.7rem;font-weight:500;font-style:italic;letter-spacing:0.01em;margin-bottom:1.5rem">Perfil</h2>
 
           <div class="profile-header-section">
             <div class="avatar-upload" onclick="document.getElementById('avatarFileInput').click()">
@@ -1023,30 +872,6 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 </div>
 
 <div class="toast-area" id="toastArea"></div>
-
-<!-- Posiciona o anel SVG corretamente sobre o O após o DOM carregar -->
-<script>
-(function positionRing() {
-  function doPosition() {
-    const oEl  = document.getElementById('orbitO');
-    const ring = document.getElementById('saturnRing');
-    if (!oEl || !ring) return;
-    const r   = oEl.getBoundingClientRect();
-    const cx  = r.left + r.width  / 2;
-    const cy  = r.top  + r.height / 2;
-    ring.style.left = cx + 'px';
-    ring.style.top  = cy + 'px';
-    ring.style.width  = '0';
-    ring.style.height = '0';
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', doPosition);
-  } else {
-    doPosition();
-  }
-  window.addEventListener('resize', doPosition);
-})();
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -1241,20 +1066,16 @@ function updateDashboard(email) {
         data: lineData,
         borderColor: '#6366f1',
         backgroundColor: 'rgba(99,102,241,0.12)',
-        borderWidth: 2.5,
-        fill: true,
-        tension: 0.4,
-        pointBackgroundColor: '#6366f1',
-        pointRadius: 4,
-        pointHoverRadius: 6,
+        borderWidth: 2.5, fill: true, tension: 0.4,
+        pointBackgroundColor: '#6366f1', pointRadius: 4, pointHoverRadius: 6,
       }]
     },
     options: {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: { color: tickColor, font: { size: 10 } }, grid: { color: gridColor } },
-        y: { ticks: { color: tickColor, font: { size: 10 }, callback: v => v+'%' }, grid: { color: gridColor }, min: 0, max: 100 }
+        x: { ticks: { color: tickColor, font: { size: 10, family: "'DM Sans', sans-serif" } }, grid: { color: gridColor } },
+        y: { ticks: { color: tickColor, font: { size: 10, family: "'DM Sans', sans-serif" }, callback: v => v+'%' }, grid: { color: gridColor }, min: 0, max: 100 }
       }
     }
   });
@@ -1273,19 +1094,14 @@ function updateDashboard(email) {
     type: 'bar',
     data: {
       labels: barLabels,
-      datasets: [{
-        data: barData,
-        backgroundColor: barColors,
-        borderRadius: 8,
-        borderSkipped: false,
-      }]
+      datasets: [{ data: barData, backgroundColor: barColors, borderRadius: 8, borderSkipped: false }]
     },
     options: {
       maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: { color: tickColor, font: { size: 10 } }, grid: { color: gridColor } },
-        y: { ticks: { color: tickColor, font: { size: 10 }, callback: v => v+'%' }, grid: { color: gridColor }, min: 0, max: 100 }
+        x: { ticks: { color: tickColor, font: { size: 10, family: "'DM Sans', sans-serif" } }, grid: { color: gridColor } },
+        y: { ticks: { color: tickColor, font: { size: 10, family: "'DM Sans', sans-serif" }, callback: v => v+'%' }, grid: { color: gridColor }, min: 0, max: 100 }
       }
     }
   });
@@ -1405,15 +1221,15 @@ function render(total,sucesso,falha,det) {
   const camp=document.getElementById('campaignName').value||'—';
   document.getElementById('txt-resumo').innerHTML=
     `<strong style="color:var(--primary)">${comp}</strong> · <strong style="color:var(--text)">${camp}</strong><br>
-     <span style="font-family:var(--font-display);font-size:1.5rem;font-weight:600;color:var(--accent);font-style:italic">${taxa.toFixed(1)}%</span> de sucesso na operação. ${sucesso.toLocaleString('pt-BR')} envios bem-sucedidos de ${total.toLocaleString('pt-BR')} total.`;
+     <span style="font-family:var(--font-display);font-size:1.6rem;font-weight:500;color:var(--accent);font-style:italic">${taxa.toFixed(1)}%</span> de sucesso na operação. ${sucesso.toLocaleString('pt-BR')} envios bem-sucedidos de ${total.toLocaleString('pt-BR')} total.`;
 
   const ctx=document.getElementById('mainChart').getContext('2d');
   if(chartMain)chartMain.destroy();
-  chartMain=new Chart(ctx,{type:'doughnut',data:{labels:['Sucesso','Falha'],datasets:[{data:[sucesso,falha],backgroundColor:['#00f2c3','#f56565'],hoverOffset:16,borderWidth:0,borderRadius:8}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{family:'DM Sans',weight:'500',size:11}}}},cutout:'76%'}});
+  chartMain=new Chart(ctx,{type:'doughnut',data:{labels:['Sucesso','Falha'],datasets:[{data:[sucesso,falha],backgroundColor:['#00f2c3','#f56565'],hoverOffset:16,borderWidth:0,borderRadius:8}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{family:"'DM Sans', sans-serif",weight:'500',size:11}}}},cutout:'76%'}});
 
   const bCtx=document.getElementById('barChart').getContext('2d');
   if(chartBar)chartBar.destroy();
-  chartBar=new Chart(bCtx,{type:'bar',data:{labels:['Entregue','Enviado','Visualizado','Respondido'],datasets:[{data:[det.entregue,det.enviado,det.visualizado,det.respondido],backgroundColor:['rgba(0,242,195,0.7)','rgba(0,242,195,0.4)','rgba(99,102,241,0.7)','rgba(245,158,11,0.7)'],borderRadius:8,borderSkipped:false}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(255,255,255,0.04)'}},y:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(255,255,255,0.04)'}}}}});
+  chartBar=new Chart(bCtx,{type:'bar',data:{labels:['Entregue','Enviado','Visualizado','Respondido'],datasets:[{data:[det.entregue,det.enviado,det.visualizado,det.respondido],backgroundColor:['rgba(0,242,195,0.7)','rgba(0,242,195,0.4)','rgba(99,102,241,0.7)','rgba(245,158,11,0.7)'],borderRadius:8,borderSkipped:false}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#94a3b8',font:{size:10,family:"'DM Sans', sans-serif"}},grid:{color:'rgba(255,255,255,0.04)'}},y:{ticks:{color:'#94a3b8',font:{size:10,family:"'DM Sans', sans-serif"}},grid:{color:'rgba(255,255,255,0.04)'}}}}});
 
   const erros=[{nome:'Mensagem não entregue',valor:det.f_msg},{nome:'Não entregue pela Meta',valor:det.f_meta},{nome:'Erro experimento Meta',valor:det.f_exp},{nome:'Falha Genérica',valor:det.f_gen}].sort((a,b)=>b.valor-a.valor);
   document.getElementById('gargalo-nome').textContent = erros[0].valor>0?erros[0].nome:'Nenhuma falha detectada';
@@ -1587,7 +1403,6 @@ async function exportarPDF() {
 
   try {
     const { jsPDF } = window.jspdf;
-
     const comp    = document.getElementById('companyName').value || '—';
     const camp    = document.getElementById('campaignName').value || '—';
     const total   = document.getElementById('r-total').textContent;
@@ -1595,7 +1410,6 @@ async function exportarPDF() {
     const falha   = document.getElementById('r-falha').textContent;
     const taxaS   = document.getElementById('r-taxa-s').textContent;
     const taxaF   = document.getElementById('r-taxa-f').textContent;
-
     const statusItems = [
       { label: 'Entregue',                  n: document.getElementById('n-entregue').textContent,   p: document.getElementById('p-entregue').textContent,   ok: true },
       { label: 'Enviado',                   n: document.getElementById('n-enviado').textContent,    p: document.getElementById('p-enviado').textContent,    ok: true },
@@ -1606,185 +1420,107 @@ async function exportarPDF() {
       { label: 'Erro experimento Meta',     n: document.getElementById('n-fexp').textContent,       p: document.getElementById('p-fexp').textContent,       ok: false },
       { label: 'Falha Genérica',            n: document.getElementById('n-fgen').textContent,       p: document.getElementById('p-fgen').textContent,       ok: false },
     ];
-
     const funil = [
       { label: 'Entregue',    val: document.getElementById('f-entregue').textContent, sub: document.getElementById('f-entregue-p').textContent },
       { label: 'Visualização',val: document.getElementById('f-viz').textContent,      sub: document.getElementById('f-viz-p').textContent },
       { label: 'Resposta',    val: document.getElementById('f-resp').textContent,     sub: document.getElementById('f-resp-p').textContent },
     ];
-
     const gargalo = document.getElementById('gargalo-nome').textContent;
     const insightEl = document.getElementById('insightBar');
     const insightLabel = insightEl.querySelector('.ilabel')?.textContent || '';
     const insightText  = insightEl.querySelector('.itext')?.textContent  || '';
     const insightPct   = insightEl.querySelector('.pct-big')?.textContent || '';
 
-    const pdfW = 210;
-    const margin = 14;
-    const colW = pdfW - margin * 2;
+    const pdfW = 210, margin = 14, colW = pdfW - margin * 2;
     let y = 0;
-
     const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
     const pageH = 297;
-
     const C = {
-      bg:      [255, 255, 255],
-      primary: [79,  70,  229],
-      accent:  [13,  148, 136],
-      danger:  [220, 38,  38 ],
-      warning: [217, 119, 6  ],
-      text:    [15,  23,  42 ],
-      muted:   [100, 116, 139],
-      border:  [226, 232, 240],
-      success_bg: [240, 253, 250],
-      fail_bg:    [254, 242, 242],
+      bg:[255,255,255],primary:[79,70,229],accent:[13,148,136],danger:[220,38,38],warning:[217,119,6],
+      text:[15,23,42],muted:[100,116,139],border:[226,232,240],success_bg:[240,253,250],fail_bg:[254,242,242],
     };
 
     function addPage() { pdf.addPage(); y = margin; }
     function checkY(need) { if (y + need > pageH - 10) addPage(); }
-
-    function setFont(size, weight='normal', color=C.text) {
-      pdf.setFontSize(size);
-      pdf.setFont('helvetica', weight);
-      pdf.setTextColor(...color);
-    }
-
+    function setFont(size, weight='normal', color=C.text) { pdf.setFontSize(size); pdf.setFont('helvetica', weight); pdf.setTextColor(...color); }
     function drawRect(x, ry, w, h, fillColor, strokeColor) {
       if (fillColor) { pdf.setFillColor(...fillColor); pdf.rect(x, ry, w, h, 'F'); }
       if (strokeColor) { pdf.setDrawColor(...strokeColor); pdf.setLineWidth(0.3); pdf.rect(x, ry, w, h, 'S'); }
     }
 
-    pdf.setFillColor(...C.primary);
-    pdf.rect(0, 0, pdfW, 1.5, 'F');
-
+    pdf.setFillColor(...C.primary); pdf.rect(0, 0, pdfW, 1.5, 'F');
     y = 10;
-    setFont(18, 'bold', C.primary);
-    pdf.text('Orbit', margin, y);
-    setFont(8, 'normal', C.muted);
-    pdf.text('Analytics · Enterprise Edition', margin + 22, y);
-    setFont(7, 'normal', C.muted);
-    const dateStr = new Date().toLocaleString('pt-BR');
-    pdf.text('Gerado em: ' + dateStr, pdfW - margin, y, { align: 'right' });
-
-    y += 5;
-    pdf.setDrawColor(...C.border); pdf.setLineWidth(0.4);
-    pdf.line(margin, y, pdfW - margin, y);
-    y += 7;
-
-    setFont(14, 'bold', C.text);
-    pdf.text('Relatório de Performance de Disparo', margin, y);
-    y += 5;
-    setFont(9, 'normal', C.muted);
-    pdf.text(`Empresa: ${comp}   |   Campanha: ${camp}`, margin, y);
-    y += 9;
+    setFont(18, 'bold', C.primary); pdf.text('Orbit', margin, y);
+    setFont(8, 'normal', C.muted); pdf.text('Analytics · Enterprise Edition', margin + 22, y);
+    setFont(7, 'normal', C.muted); pdf.text('Gerado em: ' + new Date().toLocaleString('pt-BR'), pdfW - margin, y, { align: 'right' });
+    y += 5; pdf.setDrawColor(...C.border); pdf.setLineWidth(0.4); pdf.line(margin, y, pdfW - margin, y); y += 7;
+    setFont(14, 'bold', C.text); pdf.text('Relatório de Performance de Disparo', margin, y); y += 5;
+    setFont(9, 'normal', C.muted); pdf.text(`Empresa: ${comp}   |   Campanha: ${camp}`, margin, y); y += 9;
 
     const bannerColor = insightPct ? (parseFloat(insightPct) > 70 ? C.success_bg : C.fail_bg) : C.success_bg;
     const bannerText  = insightPct ? (parseFloat(insightPct) > 70 ? C.accent : C.danger) : C.accent;
-    checkY(18);
-    drawRect(margin, y, colW, 16, bannerColor, C.border);
-    setFont(7, 'bold', bannerText);
-    pdf.text(insightLabel.toUpperCase(), margin + 3, y + 5);
-    setFont(9, 'normal', C.text);
-    pdf.text(insightText, margin + 3, y + 10);
-    setFont(15, 'bold', bannerText);
-    pdf.text(insightPct, pdfW - margin - 3, y + 10, { align: 'right' });
-    y += 21;
+    checkY(18); drawRect(margin, y, colW, 16, bannerColor, C.border);
+    setFont(7, 'bold', bannerText); pdf.text(insightLabel.toUpperCase(), margin + 3, y + 5);
+    setFont(9, 'normal', C.text); pdf.text(insightText, margin + 3, y + 10);
+    setFont(15, 'bold', bannerText); pdf.text(insightPct, pdfW - margin - 3, y + 10, { align: 'right' }); y += 21;
 
     checkY(24);
     const kpiW = (colW - 4) / 3;
-    const kpiColors = [C.primary, C.accent, C.danger];
-    const kpiLabels = ['TOTAL DE CLIENTES', 'SUCESSO DE ENVIO', 'FALHA DE ENVIO'];
-    const kpiVals   = [total, sucesso, falha];
-    const kpiSubs   = ['', taxaS, taxaF];
-
-    kpiColors.forEach((col, i) => {
+    [[C.primary,'TOTAL DE CLIENTES',total,''],[C.accent,'SUCESSO DE ENVIO',sucesso,taxaS],[C.danger,'FALHA DE ENVIO',falha,taxaF]].forEach((k,i) => {
       const kx = margin + i * (kpiW + 2);
-      drawRect(kx, y, kpiW, 20, [248, 250, 252], C.border);
-      pdf.setFillColor(...col); pdf.rect(kx, y + 19.5, kpiW, 1, 'F');
-      setFont(6, 'bold', C.muted);
-      pdf.text(kpiLabels[i], kx + 3, y + 5.5);
-      setFont(14, 'bold', col);
-      pdf.text(kpiVals[i], kx + 3, y + 14);
-      if (kpiSubs[i]) { setFont(7, 'normal', C.muted); pdf.text(kpiSubs[i], kx + 3, y + 18.5); }
-    });
-    y += 26;
+      drawRect(kx, y, kpiW, 20, [248,250,252], C.border);
+      pdf.setFillColor(...k[0]); pdf.rect(kx, y + 19.5, kpiW, 1, 'F');
+      setFont(6, 'bold', C.muted); pdf.text(k[1], kx + 3, y + 5.5);
+      setFont(14, 'bold', k[0]); pdf.text(k[2], kx + 3, y + 14);
+      if (k[3]) { setFont(7, 'normal', C.muted); pdf.text(k[3], kx + 3, y + 18.5); }
+    }); y += 26;
 
-    checkY(36);
-    setFont(10, 'bold', C.text);
-    pdf.text('Funil de Conversão', margin, y);
-    y += 5;
-
+    checkY(36); setFont(10, 'bold', C.text); pdf.text('Funil de Conversão', margin, y); y += 5;
     const funilW = (colW - 4) / 3;
-    const funilColors = [C.accent, C.primary, [217, 119, 6]];
+    const funilColors = [C.accent, C.primary, [217,119,6]];
     funil.forEach((f, i) => {
       const fx = margin + i * (funilW + 2);
-      drawRect(fx, y, funilW, 20, [248, 250, 252], C.border);
+      drawRect(fx, y, funilW, 20, [248,250,252], C.border);
       setFont(6, 'bold', C.muted); pdf.text(f.label.toUpperCase(), fx + 3, y + 5);
       setFont(14, 'bold', funilColors[i]); pdf.text(f.val, fx + 3, y + 14);
       setFont(7, 'normal', C.muted); pdf.text(f.sub, fx + 3, y + 18.5);
       if (i < 2) { setFont(10, 'normal', C.muted); pdf.text('→', fx + funilW + 0.3, y + 12); }
-    });
-    y += 27;
+    }); y += 27;
 
-    checkY(10);
-    setFont(10, 'bold', C.text);
-    pdf.text('Distribuição de Status', margin, y);
-    y += 5;
-
-    drawRect(margin, y, colW, 7, [241, 245, 249], C.border);
+    checkY(10); setFont(10, 'bold', C.text); pdf.text('Distribuição de Status', margin, y); y += 5;
+    drawRect(margin, y, colW, 7, [241,245,249], C.border);
     setFont(6.5, 'bold', C.muted);
-    pdf.text('STATUS', margin + 3, y + 4.5);
-    pdf.text('QUANTIDADE', margin + colW * 0.62, y + 4.5);
-    pdf.text('% DO TOTAL', margin + colW * 0.82, y + 4.5);
-    y += 7;
-
+    pdf.text('STATUS', margin + 3, y + 4.5); pdf.text('QUANTIDADE', margin + colW * 0.62, y + 4.5); pdf.text('% DO TOTAL', margin + colW * 0.82, y + 4.5); y += 7;
     statusItems.forEach((item, i) => {
       checkY(8);
-      const rowBg = i % 2 === 0 ? [255,255,255] : [248,250,252];
-      drawRect(margin, y, colW, 7.5, rowBg, C.border);
-      if (!item.ok) {
-        pdf.setFillColor(254, 242, 242);
-        pdf.rect(margin, y, 2.5, 7.5, 'F');
-      } else {
-        pdf.setFillColor(...C.accent);
-        pdf.rect(margin, y, 2.5, 7.5, 'F');
-      }
-      setFont(7.5, 'normal', C.text);
-      pdf.text(item.label, margin + 5, y + 5);
-      setFont(7.5, 'bold', item.ok ? C.accent : C.danger);
-      pdf.text(item.n, margin + colW * 0.62, y + 5);
-      setFont(7.5, 'normal', C.muted);
-      pdf.text(item.p, margin + colW * 0.82, y + 5);
-      y += 7.5;
-    });
-    y += 5;
+      drawRect(margin, y, colW, 7.5, i%2===0?[255,255,255]:[248,250,252], C.border);
+      if (!item.ok) { pdf.setFillColor(254,242,242); pdf.rect(margin, y, 2.5, 7.5, 'F'); }
+      else { pdf.setFillColor(...C.accent); pdf.rect(margin, y, 2.5, 7.5, 'F'); }
+      setFont(7.5, 'normal', C.text); pdf.text(item.label, margin + 5, y + 5);
+      setFont(7.5, 'bold', item.ok ? C.accent : C.danger); pdf.text(item.n, margin + colW * 0.62, y + 5);
+      setFont(7.5, 'normal', C.muted); pdf.text(item.p, margin + colW * 0.82, y + 5); y += 7.5;
+    }); y += 5;
 
-    checkY(28);
-    setFont(10, 'bold', C.text);
-    pdf.text('Principal Gargalo', margin, y);
-    y += 5;
+    checkY(28); setFont(10, 'bold', C.text); pdf.text('Principal Gargalo', margin, y); y += 5;
     drawRect(margin, y, colW, 12, C.fail_bg, C.border);
     pdf.setFillColor(...C.danger); pdf.rect(margin, y, 2.5, 12, 'F');
     setFont(6, 'bold', C.danger); pdf.text('PRINCIPAL GARGALO', margin + 5, y + 4.5);
-    setFont(9, 'bold', C.text); pdf.text(gargalo, margin + 5, y + 9.5);
-    y += 17;
+    setFont(9, 'bold', C.text); pdf.text(gargalo, margin + 5, y + 9.5); y += 17;
 
     const totalPages = pdf.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       pdf.setPage(i);
       pdf.setFillColor(...C.primary); pdf.rect(0, pageH - 1.5, pdfW, 1.5, 'F');
       setFont(7, 'normal', C.muted);
-      pdf.text(`Orbit Analytics · Relatório confidencial · Página ${i}/${totalPages}`, pdfW / 2, pageH - 5, { align: 'center' });
+      pdf.text(`Orbit Analytics · Relatório confidencial · Página ${i}/${totalPages}`, pdfW/2, pageH-5, {align:'center'});
     }
-
     pdf.save(`Orbit_${comp}_${camp}.pdf`);
     toast('PDF exportado com sucesso!');
   } catch (err) {
     toast('Erro ao gerar PDF.', 'error');
     console.error(err);
   } finally {
-    btn.disabled = false;
-    btn.innerHTML = orig;
+    btn.disabled = false; btn.innerHTML = orig;
   }
 }
 </script>
