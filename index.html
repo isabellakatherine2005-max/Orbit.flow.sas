@@ -20,6 +20,15 @@
   --radius: 16px; --radius-sm: 10px; --radius-lg: 24px;
   --sidebar-w: 240px;
 }
+[data-theme="light"] {
+  --bg: #f0f2f8; --surface: #ffffff; --surface-2: #f1f5f9; --surface-3: #e2e8f0;
+  --border: #e2e8f0; --border-2: #cbd5e1;
+  --accent: #0d9488; --accent-dim: rgba(13,148,136,0.1); --accent-glow: rgba(13,148,136,0.2);
+  --primary: #4f46e5; --primary-dim: rgba(79,70,229,0.1); --primary-glow: rgba(79,70,229,0.25);
+  --danger: #dc2626; --danger-dim: rgba(220,38,38,0.08);
+  --warning: #d97706; --warning-dim: rgba(217,119,6,0.08);
+  --text: #0f172a; --text-muted: #64748b; --text-2: #475569;
+}
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
@@ -55,9 +64,11 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .auth-tagline { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
 .auth-card {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
-  padding: 2rem; box-shadow: 0 40px 80px -20px rgba(0,0,0,0.9);
+  padding: 2rem; box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5);
   animation: fadeUp 0.45s cubic-bezier(0.16,1,0.3,1);
 }
+[data-theme="light"] .auth-card { box-shadow: 0 20px 60px -10px rgba(0,0,0,0.15); }
+[data-theme="light"] #authScreen .sky-canvas { background: linear-gradient(180deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); }
 @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
 .auth-tabs { display: flex; background: var(--surface-2); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 1.8rem; gap: 4px; }
 .auth-tab { flex:1; padding: 0.55rem; border: none; border-radius: 8px; font-family: inherit; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--text-muted); }
@@ -144,6 +155,8 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .live-dot { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); }
 .live-dot::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); display:block; animation: pulse-dot 2s infinite; }
 @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.btn-theme { background:var(--surface-2); border:1px solid var(--border-2); color:var(--text-muted); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s; flex-shrink:0; }
+.btn-theme:hover { background:var(--surface-3); color:var(--text); border-color:var(--primary); }
 
 .page { display: none; flex: 1; padding: 2rem; }
 .page.active { display: block; animation: fadeUp 0.35s ease; }
@@ -389,7 +402,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-      <div class="sidebar-brand">
+      <div class="sidebar-brand" onclick="showPage('analysis')" style="cursor:pointer" title="Ir para início">
         <span class="brand-name">Orbit</span>
         <span class="brand-sub">Enterprise Analytics</span>
       </div>
@@ -435,6 +448,9 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
         <div class="topbar-title" id="topbarTitle">Análise de Campanha</div>
         <div class="topbar-right">
           <div class="live-dot">LIVE SYSTEM</div>
+          <button class="btn-theme" id="btnTheme" onclick="toggleTheme()" title="Alternar tema">
+            <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
         </div>
       </div>
 
@@ -1069,31 +1085,68 @@ function saveProfile() {
   toast('Perfil atualizado com sucesso!');
 }
 
-// ── PDF EXPORT ─────────────────────────────
+// ── THEME TOGGLE ───────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const isLight = html.getAttribute('data-theme') === 'light';
+  html.setAttribute('data-theme', isLight ? 'dark' : 'light');
+  localStorage.setItem('orbit_theme', isLight ? 'dark' : 'light');
+  const icon = document.getElementById('themeIcon');
+  if (isLight) {
+    icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  } else {
+    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  }
+}
+(function() {
+  const saved = localStorage.getItem('orbit_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  if (saved === 'light') {
+    const icon = document.getElementById('themeIcon');
+    if (icon) icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  }
+})();
+
 async function exportarPDF() {
   const btn=document.getElementById('btnPdf');
   const orig=btn.innerHTML; btn.disabled=true;
   btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Gerando...';
   try {
     const target = document.getElementById('resultsArea');
-    const canvas = await html2canvas(target, { scale:2, useCORS:true, backgroundColor:'#080a0f', logging:false, windowWidth:target.scrollWidth, windowHeight:target.scrollHeight });
+    const canvas = await html2canvas(target, {
+      scale: 4,
+      useCORS: true,
+      backgroundColor: document.documentElement.getAttribute('data-theme')==='light' ? '#f8fafc' : '#080a0f',
+      logging: false,
+      windowWidth: target.scrollWidth,
+      windowHeight: target.scrollHeight,
+      imageTimeout: 0,
+      allowTaint: true
+    });
     const { jsPDF } = window.jspdf;
-    const imgData = canvas.toDataURL('image/jpeg', 0.85); // JPEG for lighter file
-    const pdfW=297, pdfH=210;
-    const imgW=canvas.width, imgH=canvas.height;
-    const ratio = Math.min(pdfW/imgW, (pdfH-22)/imgH);
-    const fw=imgW*ratio, fh=imgH*ratio;
-    const ox=(pdfW-fw)/2, oy=22;
-    const pdf = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4', compress:true });
-    pdf.setFillColor(8,10,15); pdf.rect(0,0,pdfW,pdfH,'F');
-    pdf.setTextColor(0,242,195); pdf.setFontSize(10); pdf.setFont('helvetica','bold');
-    pdf.text('Orbit Analytics | Relatório de Performance de Disparo', 10, 9);
-    pdf.setTextColor(148,163,184); pdf.setFontSize(7.5); pdf.setFont('helvetica','normal');
-    pdf.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 10, 15);
+    const imgData = canvas.toDataURL('image/png');
+    const mmPerPx = 0.264583;
+    const margin = 10;
+    const headerH = 22;
+    const pdfW = 210;
+    const availW = pdfW - margin * 2;
+    const imgMmW = canvas.width * mmPerPx / 4;
+    const imgMmH = canvas.height * mmPerPx / 4;
+    const scale2 = availW / imgMmW;
+    const fw = availW;
+    const fh = imgMmH * scale2;
+    const pdfH = fh + headerH + margin;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [pdfW, Math.max(pdfH, 100)], compress: false });
+    const bgR = document.documentElement.getAttribute('data-theme')==='light' ? [248,250,252] : [8,10,15];
+    pdf.setFillColor(...bgR); pdf.rect(0,0,pdfW,Math.max(pdfH,100),'F');
+    pdf.setTextColor(0,242,195); pdf.setFontSize(11); pdf.setFont('helvetica','bold');
+    pdf.text('Orbit Analytics | Relatório de Performance de Disparo', margin, 9);
+    pdf.setTextColor(148,163,184); pdf.setFontSize(8); pdf.setFont('helvetica','normal');
+    pdf.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, margin, 15);
     const comp=document.getElementById('companyName').value||'';
     const camp=document.getElementById('campaignName').value||'';
-    if (comp||camp) pdf.text(`Empresa: ${comp} | Campanha: ${camp}`, 10, 20);
-    pdf.addImage(imgData,'JPEG',ox,oy,fw,fh);
+    if (comp||camp) pdf.text(`Empresa: ${comp} | Campanha: ${camp}`, margin, 21);
+    pdf.addImage(imgData, 'PNG', margin, headerH, fw, fh);
     pdf.save(`Orbit_${comp||'relatorio'}_${camp||'campanha'}.pdf`);
     toast('PDF exportado com sucesso!');
   } catch(err) { toast('Erro ao gerar PDF.','error'); console.error(err); }
