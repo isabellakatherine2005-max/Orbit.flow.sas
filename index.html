@@ -943,16 +943,19 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 <div class="toast-area" id="toastArea"></div>
 
 <!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL  = 'https://orlwhomkickjcuuxrszu.supabase.co';
-// ✅ CORREÇÃO 1: Substitua pelo valor da chave "anon" encontrada em
-// Supabase Dashboard → Project Settings → API → Project API keys → anon (public)
-// O formato correto começa com "eyJ..." e não com "sb_publishable_..."
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdkZGdtcGtzaHdodWtyem9waXl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMzEzMTMsImV4cCI6MjA5MTYwNzMxM30.9W6zy7j97ZKQWSCugkuJKlwDJ-ckBqY7kykCUdgSdWY';
 
-// ✅ CORREÇÃO 2: Parêntese de fechamento do createClient() adicionado
-const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+let _sb;
+
+if (typeof supabase === 'undefined') {
+  console.error("Falha ao carregar a biblioteca do Supabase.");
+  alert("O sistema não conseguiu se conectar ao servidor. Se você usa um bloqueador de anúncios (AdBlock, Brave), por favor, desative-o nesta página.");
+} else {
+  _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+}
 
 // ── TOAST ─────────────────────────────────
 function toast(msg, type='success') {
